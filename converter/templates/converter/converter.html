@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .converter {
+            background-color: #fff;
+            padding: 30px;
+            display: inline-block;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h1>Currency Converter</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="number" name="amount" step="0.01" placeholder="Amount" required>
+            <br>
+            <select name="from_currency" required>
+                <option value="">From Currency</option>
+                {% for cur in currencies %}
+                    <option value="{{ cur }}">{{ cur }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <select name="to_currency" required>
+                <option value="">To Currency</option>
+                {% for cur in currencies %}
+                    <option value="{{ cur }}">{{ cur }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit">Convert</button>
+        </form>
+
+        {% if result %}
+            <div class="result">Converted Amount: {{ result }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>

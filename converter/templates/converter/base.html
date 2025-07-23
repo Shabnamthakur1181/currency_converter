@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Currency Converter{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  {% if debug %}
+  <script src="{% static 'django_browser_reload/reload.js' %}"></script>
+{% endif %}
+
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="mb-4 p-4 rounded text-white {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-gray-500{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
